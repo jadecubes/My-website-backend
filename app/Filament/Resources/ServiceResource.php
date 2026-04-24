@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
 
     public static function form(Form $form): Form
@@ -42,9 +43,9 @@ class ServiceResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListServices::route('/'),
+            'index' => Pages\ListServices::route('/'),
             'create' => Pages\CreateService::route('/create'),
-            'edit'   => Pages\EditService::route('/{record}/edit'),
+            'edit' => Pages\EditService::route('/{record}/edit'),
         ];
     }
 }

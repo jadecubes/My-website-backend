@@ -22,10 +22,10 @@ class ContactApiTest extends TestCase
     public function test_valid_submission_creates_message(): void
     {
         $payload = [
-            'name'    => 'Ada Lovelace',
-            'email'   => 'ada@example.com',
+            'name' => 'Ada Lovelace',
+            'email' => 'ada@example.com',
             'subject' => 'Hello',
-            'body'    => 'I would like a poster.',
+            'body' => 'I would like a poster.',
         ];
 
         $this->postJson('/api/contact', $payload)
@@ -34,16 +34,16 @@ class ContactApiTest extends TestCase
 
         $this->assertDatabaseHas('messages', [
             'email' => 'ada@example.com',
-            'body'  => 'I would like a poster.',
+            'body' => 'I would like a poster.',
         ]);
     }
 
     public function test_subject_is_optional(): void
     {
         $this->postJson('/api/contact', [
-            'name'  => 'Ada',
+            'name' => 'Ada',
             'email' => 'ada@example.com',
-            'body'  => 'Hi',
+            'body' => 'Hi',
         ])->assertCreated();
 
         $this->assertSame(1, Message::count());
@@ -59,19 +59,19 @@ class ContactApiTest extends TestCase
     public function test_invalid_email_returns_422(): void
     {
         $this->postJson('/api/contact', [
-            'name'  => 'Ada',
+            'name' => 'Ada',
             'email' => 'not-an-email',
-            'body'  => 'Hi',
+            'body' => 'Hi',
         ])->assertStatus(422)
-          ->assertJsonValidationErrors(['email']);
+            ->assertJsonValidationErrors(['email']);
     }
 
     public function test_rate_limit_blocks_sixth_request_within_a_minute(): void
     {
         $payload = [
-            'name'  => 'Ada',
+            'name' => 'Ada',
             'email' => 'ada@example.com',
-            'body'  => 'Hi',
+            'body' => 'Hi',
         ];
 
         for ($i = 0; $i < 5; $i++) {

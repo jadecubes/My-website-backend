@@ -19,14 +19,14 @@ class DatabaseSeeder extends Seeder
         if (empty($adminPassword)) {
             throw new \RuntimeException(
                 'ADMIN_PASSWORD env var is required to seed the admin user. '
-                . 'Set it in .env before running db:seed.'
+                .'Set it in .env before running db:seed.'
             );
         }
 
         User::firstOrCreate(
             ['email' => env('ADMIN_EMAIL', 'admin@ethostudio.com')],
             [
-                'name'     => 'Admin',
+                'name' => 'Admin',
                 'password' => Hash::make($adminPassword),
                 'is_admin' => true,
             ]

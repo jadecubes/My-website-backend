@@ -13,8 +13,8 @@ class PanelAccessTest extends TestCase
     public function test_non_admin_user_cannot_access_panel(): void
     {
         $user = User::create([
-            'name'     => 'Regular',
-            'email'    => 'user@example.com',
+            'name' => 'Regular',
+            'email' => 'user@example.com',
             'password' => 'secret-password',
             'is_admin' => false,
         ]);
@@ -33,8 +33,8 @@ class PanelAccessTest extends TestCase
     public function test_admin_user_can_access_panel(): void
     {
         $admin = User::create([
-            'name'     => 'Admin',
-            'email'    => 'admin@example.com',
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
             'password' => 'secret-password',
             'is_admin' => true,
         ]);

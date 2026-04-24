@@ -14,6 +14,7 @@ use Filament\Tables\Table;
 class MessageResource extends Resource
 {
     protected static ?string $model = Message::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
 
     public static function form(Form $form): Form

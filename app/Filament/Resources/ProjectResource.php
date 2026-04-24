@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 class ProjectResource extends Resource
 {
     protected static ?string $model = Project::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-photo';
 
     public static function form(Form $form): Form
@@ -22,7 +23,7 @@ class ProjectResource extends Resource
             Forms\Components\TextInput::make('title')
                 ->required()
                 ->live(onBlur: true)
-                ->afterStateUpdated(fn($state, $set) => $set('slug', Str::slug($state))),
+                ->afterStateUpdated(fn ($state, $set) => $set('slug', Str::slug($state))),
 
             Forms\Components\TextInput::make('slug')
                 ->required()
@@ -80,9 +81,9 @@ class ProjectResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListProjects::route('/'),
+            'index' => Pages\ListProjects::route('/'),
             'create' => Pages\CreateProject::route('/create'),
-            'edit'   => Pages\EditProject::route('/{record}/edit'),
+            'edit' => Pages\EditProject::route('/{record}/edit'),
         ];
     }
 }

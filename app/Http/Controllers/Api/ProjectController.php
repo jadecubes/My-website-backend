@@ -12,7 +12,7 @@ class ProjectController extends Controller
     {
         $projects = Project::with(['category', 'media'])
             ->where('is_published', true)
-            ->when($request->category, fn($q) => $q->whereHas('category', fn($q) => $q->where('slug', $request->category)))
+            ->when($request->category, fn ($q) => $q->whereHas('category', fn ($q) => $q->where('slug', $request->category)))
             ->orderBy('sort_order')
             ->paginate(12);
 
