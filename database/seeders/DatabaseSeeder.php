@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\NavLink;
 use App\Models\Service;
+use App\Models\SiteSettings;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -49,6 +51,35 @@ class DatabaseSeeder extends Seeder
         ];
         foreach ($services as $service) {
             Service::firstOrCreate(['title' => $service['title']], $service);
+        }
+
+        // Seed site settings (singleton)
+        SiteSettings::firstOrCreate(
+            ['id' => 1],
+            [
+                'site_name' => 'Ethos Studio',
+                'tagline' => 'Professional graphic design',
+                'footer_email' => 'hello@ethostudio.com',
+                'copyright' => '© 2026 Ethos Studio. All rights reserved.',
+            ]
+        );
+
+        // Seed nav links
+        $navLinks = [
+            ['label' => 'Home', 'href' => '/', 'sort_order' => 0],
+            ['label' => 'Portfolio', 'href' => '/portfolio', 'sort_order' => 1],
+            ['label' => 'About', 'href' => '/about', 'sort_order' => 2],
+            ['label' => 'Contact', 'href' => '/contact', 'sort_order' => 3],
+        ];
+        foreach ($navLinks as $link) {
+            NavLink::firstOrCreate(
+                ['href' => $link['href']],
+                [
+                    'label' => $link['label'],
+                    'sort_order' => $link['sort_order'],
+                    'is_published' => true,
+                ]
+            );
         }
     }
 }

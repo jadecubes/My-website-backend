@@ -17,6 +17,8 @@ class ProjectResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
 
+    protected static ?string $navigationGroup = 'Portfolio';
+
     public static function form(Form $form): Form
     {
         return $form->schema([
