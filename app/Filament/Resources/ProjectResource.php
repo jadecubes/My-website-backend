@@ -20,6 +20,14 @@ class ProjectResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
+            Forms\Components\Placeholder::make('public_url')
+                ->label('Public URL')
+                ->content(fn (?Project $record) => $record
+                    ? rtrim(config('app.frontend_url'), '/').'/portfolio/'.$record->slug
+                    : '—')
+                ->visibleOn('edit')
+                ->columnSpanFull(),
+
             Forms\Components\TextInput::make('title')
                 ->required()
                 ->live(onBlur: true)
@@ -73,6 +81,12 @@ class ProjectResource extends Resource
                 Tables\Filters\SelectFilter::make('category')->relationship('category', 'name'),
             ])
             ->actions([
+                Tables\Actions\Action::make('view')
+                    ->label('View')
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->url(fn (Project $record) => rtrim(config('app.frontend_url'), '/').'/portfolio/'.$record->slug)
+                    ->openUrlInNewTab()
+                    ->visible(fn (Project $record) => $record->is_published),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ]);
